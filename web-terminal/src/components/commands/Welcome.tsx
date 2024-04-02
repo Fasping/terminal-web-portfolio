@@ -27,8 +27,8 @@ const Welcome: React.FC = () => {
                 <PreWrapper>
                     <PreNameMobile>
                         {`
-                            FERNANDO CASES
-                         `}
+ FERNANDO CASES
+                     `}
                     </PreNameMobile>
                 </PreWrapper>
                 <div>Welcome to my terminal portfolio. (Version 2.0.1)</div>
