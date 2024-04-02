@@ -27,21 +27,15 @@ const Welcome: React.FC = () => {
                 <PreWrapper>
                     <PreNameMobile>
                         {`
- _______  _______  ______    __    _  _______  __    _  ______   _______    _______  _______  _______  _______  _______ 
-|       ||       ||    _ |  |  |  | ||   _   ||  |  | ||      | |       |  |       ||   _   ||       ||       ||       |
-|    ___||    ___||   | ||  |   |_| ||  |_|  ||   |_| ||  _    ||   _   |  |       ||  |_|  ||  _____||    ___||  _____|
-|   |___ |   |___ |   |_||_ |       ||       ||       || | |   ||  | |  |  |       ||       || |_____ |   |___ | |_____ 
-|    ___||    ___||    __  ||  _    ||       ||  _    || |_|   ||  |_|  |  |      _||       ||_____  ||    ___||_____  |
-|   |    |   |___ |   |  | || | |   ||   _   || | |   ||       ||       |  |     |_ |   _   | _____| ||   |___  _____| |
-|___|    |_______||___|  |_||_|  |__||__| |__||_|  |__||______| |_______|  |_______||__| |__||_______||_______||_______|
-          `}
+                            FERNANDO CASES
+                         `}
                     </PreNameMobile>
                 </PreWrapper>
-                <div>Welcome to my terminal portfolio. (Version 1.3.1)</div>
+                <div>Welcome to my terminal portfolio. (Version 2.0.1)</div>
                 <Seperator>----</Seperator>
                 <div>
                     This project's source code can be found in this project's{" "}
-                    <Link href="https://github.com/satnaing/terminal-portfolio">
+                    <Link href="https://github.com/Fasping/terminal-web-portfolio">
                         GitHub repo
                     </Link>
                     .
