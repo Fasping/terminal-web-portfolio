@@ -6,11 +6,10 @@
 ![Autocomplete Feature](https://img.shields.io/badge/Autocomplete-Enabled-yellow)
 ![Navigation](https://img.shields.io/badge/Navigation-Previous%20%7C%20Next-lightgrey)
 ![Command History](https://img.shields.io/badge/Command%20History-Yes-blue)
-![PWA](https://img.shields.io/badge/PWA-Yes-orange)
 ![Offline Support](https://img.shields.io/badge/Offline%20Support-Yes-red)
 ![Testing](https://img.shields.io/badge/Testing-Vitest%20%7C%20React%20Testing%20Library-blueviolet)
 
-My portfolio website is designed as a terminal interface, built using React, TypeScript, and Styled-Components. It offers multiple themes, autocomplete functionality, command navigation, command history view, PWA support, offline capability, and rigorous testing.
+My portfolio website is designed as a terminal interface, built using React, TypeScript, and Styled-Components. It offers multiple themes, autocomplete functionality, command navigation, command history view, offline capability, and testing.
 
 ## Features
 
@@ -20,7 +19,7 @@ My portfolio website is designed as a terminal interface, built using React, Typ
 - **Navigation:** Easily navigate between previous and next commands using arrow keys.
 - **Command History:** Access your command history for quick reference and reuse.
 - **PWA and Offline Support:** Enjoy the benefits of a Progressive Web App, including offline functionality.
-- **Testing:** Thoroughly tested using Vitest and React Testing Library to ensure reliability.
+- **Testing:** Thoroughly tested using Vitest to ensure reliability.
 
 ## Tech Stack
 
@@ -28,8 +27,7 @@ My portfolio website is designed as a terminal interface, built using React, Typ
 - **Styling:** [Styled-Components](https://styled-components.com/)
 - **UI/UX Design:** Created using [Figma](https://figma.com/)
 - **State Management:** Utilizing [ContextAPI](https://reactjs.org/docs/context.html)
-- **Testing Frameworks:** [Vitest](https://vitest.dev/) and [React Testing Library](https://testing-library.com/)
-- **Deployment:** Hosted on [Netlify](https://app.netlify.com/)
+- **Testing Frameworks:** [Vitest](https://vitest.dev/)
 
 ## Multiple Themes
 
