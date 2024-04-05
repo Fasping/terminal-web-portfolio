@@ -30,23 +30,27 @@ const Socials: React.FC = () => {
     const currentCommand = getCurrentCmdArry(history);
 
     useEffect(() => {
-        if (checkRedirect(rerender, currentCommand, "socials")) {
-            const selectedSocial = socials.find(({ id }) => id === parseInt(arg[1]));
-            if (selectedSocial) {
-                window.open(selectedSocial.url, "_blank");
+        const handleRedirect = () => {
+            if (checkRedirect(rerender, currentCommand, "socials")) {
+                const selectedSocial = socials.find(({ id }) => id === parseInt(arg[1]));
+                if (selectedSocial) {
+                    window.open(selectedSocial.url, "_blank");
+                }
             }
-        }
+        };
+
+        handleRedirect();
     }, [arg, rerender, currentCommand]);
 
-    const renderSocials = () => {
-        return socials.map(({ id, title, url, tab }) => (
+    const renderSocials = () => (
+        socials.map(({ id, title, url, tab }) => (
             <CmdList key={id}>
                 <Cmd>{`${id}. ${title}`}</Cmd>
                 {generateTabs(tab)}
                 <CmdDesc>- {url}</CmdDesc>
             </CmdList>
-        ));
-    };
+        ))
+    );
 
     const renderContent = () => {
         if (arg.length > 0 || arg.length > 2) {
