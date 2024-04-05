@@ -4,23 +4,21 @@ import { useTheme } from "./hooks/useTheme";
 import GlobalStyle from "./components/styles/GlobalStyle";
 import Terminal from "./components/Terminal";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const themeContext = createContext<
-  ((switchTheme: DefaultTheme) => void) | null
->(null);
+
+
+type ThemeSwitcher = (switchTheme: DefaultTheme) => void;
+
+export const ThemeContext = createContext<ThemeSwitcher | null>(null);
 
 function App() {
-  // themes
   const { theme, themeLoaded, setMode } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState(theme);
+  const [selectedTheme, setSelectedTheme] = useState<DefaultTheme>(theme);
 
-  // Disable browser's default behavior
-  // to prevent the page go up when Up Arrow is pressed
   useEffect(() => {
     window.addEventListener(
       "keydown",
-      e => {
-        ["ArrowUp", "ArrowDown"].indexOf(e.code) > -1 && e.preventDefault();
+      (e) => {
+        ["ArrowUp", "ArrowDown"].includes(e.code) && e.preventDefault();
       },
       false
     );
@@ -30,22 +28,26 @@ function App() {
     setSelectedTheme(theme);
   }, [themeLoaded, theme]);
 
-  // Update meta tag colors when switching themes
   useEffect(() => {
     const themeColor = theme.colors?.body;
 
-    const metaThemeColor = document.querySelector("meta[name='theme-color']");
-    const maskIcon = document.querySelector("link[rel='mask-icon']");
-    const metaMsTileColor = document.querySelector(
-      "meta[name='msapplication-TileColor']"
-    );
+    const updateMetaTagColors = () => {
+      const metaThemeColor = document.querySelector("meta[name='theme-color']");
+      const maskIcon = document.querySelector("link[rel='mask-icon']");
+      const metaMsTileColor = document.querySelector(
+        "meta[name='msapplication-TileColor']"
+      );
 
-    metaThemeColor && metaThemeColor.setAttribute("content", themeColor);
-    metaMsTileColor && metaMsTileColor.setAttribute("content", themeColor);
-    maskIcon && maskIcon.setAttribute("color", themeColor);
+      metaThemeColor && metaThemeColor.setAttribute("content", themeColor);
+      metaMsTileColor && metaMsTileColor.setAttribute("content", themeColor);
+      maskIcon && maskIcon.setAttribute("color", themeColor);
+    };
+
+    updateMetaTagColors();
+
   }, [selectedTheme, theme.colors?.body]);
 
-  const themeSwitcher = (switchTheme: DefaultTheme) => {
+  const themeSwitcher: ThemeSwitcher = (switchTheme) => {
     setSelectedTheme(switchTheme);
     setMode(switchTheme);
   };
@@ -58,9 +60,9 @@ function App() {
       {themeLoaded && (
         <ThemeProvider theme={selectedTheme}>
           <GlobalStyle theme={selectedTheme} />
-          <themeContext.Provider value={themeSwitcher}>
+          <ThemeContext.Provider value={themeSwitcher}>
             <Terminal />
-          </themeContext.Provider>
+          </ThemeContext.Provider>
         </ThemeProvider>
       )}
     </>

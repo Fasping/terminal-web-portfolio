@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { themeContext } from "../../App";
+import { ThemeContext } from "../../App";
 import { Wrapper } from "../styles/Output.styled";
 import { ThemeSpan, ThemesWrapper } from "../styles/Themes.styled";
 import { checkThemeSwitch, getCurrentCmdArry, isArgInvalid } from "../../utils/funcs";
@@ -9,7 +9,7 @@ import Usage from "../Usage";
 
 const Themes: React.FC = () => {
     const { arg, history, rerender } = useContext(termContext);
-    const themeSwitcher = useContext(themeContext);
+    const themeSwitcher = useContext(ThemeContext);
     const currentCommand = getCurrentCmdArry(history);
 
     useEffect(() => {
