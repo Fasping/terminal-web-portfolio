@@ -66,9 +66,3 @@ To run the project locally, follow these steps:
    ```bash
    npm run dev
    ```
-
-## Author
-
-Connect with the author:
-
-- **LinkedIn:** [@fasping](https://www.linkedin.com/in/fernandocases94/)
