@@ -4,24 +4,26 @@ import { useTheme } from "./hooks/useTheme";
 import GlobalStyle from "./components/styles/GlobalStyle";
 import Terminal from "./components/Terminal";
 
-
-
 type ThemeSwitcher = (switchTheme: DefaultTheme) => void;
 
-export const ThemeContext = createContext<ThemeSwitcher | null>(null);
+export const ThemeContext = createContext<ThemeSwitcher>(() => { }); // Provide a dummy function for compatibility
 
 function App() {
   const { theme, themeLoaded, setMode } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState<DefaultTheme>(theme);
 
   useEffect(() => {
-    window.addEventListener(
-      "keydown",
-      (e) => {
-        ["ArrowUp", "ArrowDown"].includes(e.code) && e.preventDefault();
-      },
-      false
-    );
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (["ArrowUp", "ArrowDown"].includes(e.code)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   useEffect(() => {
@@ -29,23 +31,20 @@ function App() {
   }, [themeLoaded, theme]);
 
   useEffect(() => {
-    const themeColor = theme.colors?.body;
-
     const updateMetaTagColors = () => {
+      const themeColor = selectedTheme.colors?.body;
+
       const metaThemeColor = document.querySelector("meta[name='theme-color']");
       const maskIcon = document.querySelector("link[rel='mask-icon']");
-      const metaMsTileColor = document.querySelector(
-        "meta[name='msapplication-TileColor']"
-      );
+      const metaMsTileColor = document.querySelector("meta[name='msapplication-TileColor']");
 
-      metaThemeColor && metaThemeColor.setAttribute("content", themeColor);
-      metaMsTileColor && metaMsTileColor.setAttribute("content", themeColor);
-      maskIcon && maskIcon.setAttribute("color", themeColor);
+      if (metaThemeColor) metaThemeColor.setAttribute("content", themeColor);
+      if (maskIcon) maskIcon.setAttribute("color", themeColor);
+      if (metaMsTileColor) metaMsTileColor.setAttribute("content", themeColor);
     };
 
     updateMetaTagColors();
-
-  }, [selectedTheme, theme.colors?.body]);
+  }, [selectedTheme]);
 
   const themeSwitcher: ThemeSwitcher = (switchTheme) => {
     setSelectedTheme(switchTheme);
