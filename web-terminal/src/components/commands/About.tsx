@@ -11,8 +11,8 @@ const About: React.FC = () => {
                 Hi, my name is <HighlightSpan>Fernando Cases</HighlightSpan>!
             </p>
             <p>
-                I'm <HighlightAlt>a Frontend developer</HighlightAlt> based in Stockholm,
-                Sweden.
+                I'm <HighlightAlt>a Frontend developer</HighlightAlt> based in Barcelona,
+                Spain.
             </p>
             <p>
                 I am passionate about writing codes and <br />
