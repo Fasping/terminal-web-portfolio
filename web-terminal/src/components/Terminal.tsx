@@ -78,7 +78,7 @@ const Terminal = () => {
     };
 
     const clearHistory = useCallback(() => {
-        setCmdHistory([]);
+        setCmdHistory(["help"]);
         setHints([]);
     }, []);
 
