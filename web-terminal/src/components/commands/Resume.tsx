@@ -1,9 +1,8 @@
 import { useContext, useEffect } from "react";
 import styles from "../../styles/output.module.css";
+import { profile } from "../../data/profile";
 import { getCurrentCmdArry } from "../../utils/funcs";
-import { termContext } from "../Terminal";
-
-export const RESUME_URL = "/Fernando-Cases-CV.pdf";
+import { termContext } from "../../context/terminal";
 
 const Resume = () => {
     const { history, rerender } = useContext(termContext);
@@ -12,10 +11,10 @@ const Resume = () => {
     useEffect(() => {
         if (
             rerender &&
-            (currentCommand[0] === "resume" || currentCommand[0] === "cv") &&
+            ["resume", "cv"].includes(currentCommand[0]) &&
             currentCommand.length <= 1
         ) {
-            window.open(RESUME_URL, "_blank");
+            window.open(profile.resumeUrl, "_blank");
         }
     }, [rerender, currentCommand]);
 
@@ -24,8 +23,13 @@ const Resume = () => {
             <div>Opening my resume in a new tab...</div>
             <div>
                 If nothing happens, grab it here:{" "}
-                <a className={styles.link} href={RESUME_URL} target="_blank" rel="noreferrer">
-                    Fernando Cases — CV (PDF)
+                <a
+                    className={styles.link}
+                    href={profile.resumeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {profile.name} — CV (PDF)
                 </a>
             </div>
         </div>

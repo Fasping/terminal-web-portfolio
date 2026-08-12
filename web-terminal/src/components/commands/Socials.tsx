@@ -1,20 +1,10 @@
 import { Fragment, useContext, useEffect } from "react";
 import help from "../../styles/help.module.css";
 import styles from "../../styles/output.module.css";
-import {
-    checkRedirect,
-    getCurrentCmdArry,
-    isArgInvalid,
-} from "../../utils/funcs";
-import { termContext } from "../Terminal";
+import { socialIds, socials } from "../../data/socials";
+import { checkRedirect, getCurrentCmdArry, isArgInvalid } from "../../utils/funcs";
+import { termContext } from "../../context/terminal";
 import Usage from "../Usage";
-
-const socials = [
-    { id: 1, title: "GitHub", url: "https://github.com/Fasping" },
-    { id: 2, title: "LinkedIn", url: "https://www.linkedin.com/in/fernandocases94/" },
-];
-
-const socialIds = socials.map(({ id }) => String(id));
 
 const Socials = () => {
     const { arg, history, rerender } = useContext(termContext);

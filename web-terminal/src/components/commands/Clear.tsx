@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import styles from "../../styles/output.module.css";
-import { termContext } from "../Terminal";
+import { termContext } from "../../context/terminal";
 
 const Clear = () => {
     const { arg, clearHistory } = useContext(termContext);
