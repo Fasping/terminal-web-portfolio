@@ -1,11 +1,10 @@
-import { User, WebsiteName, Wrapper } from "./styles/TerminalInfo.styled";
+import styles from "../styles/terminal.module.css";
 
-const TermInfo = () => {
-    return (
-        <Wrapper>
-            <User>visitor</User>@<WebsiteName>terminal.fernandocases.dev</WebsiteName>:~$
-        </Wrapper>
-    );
-};
+const TermInfo = () => (
+    <span className={styles.termInfo}>
+        <span className={styles.user}>visitor</span>@
+        <span className={styles.website}>terminal.fernandocases.dev</span>:~$
+    </span>
+);
 
 export default TermInfo;

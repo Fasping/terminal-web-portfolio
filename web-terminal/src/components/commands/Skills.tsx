@@ -1,45 +1,34 @@
-import { SkillsGroup, SkillsIntro } from "../styles/Skills.styled";
-import { Wrapper } from "../styles/Output.styled";
+import entries from "../../styles/entries.module.css";
+import styles from "../../styles/output.module.css";
 
-const Skills: React.FC = () => {
-    return (
-        <Wrapper data-testid="skills">
-            <SkillsIntro>Here are the tools I work with!</SkillsIntro>
-            {skills.map(({ group, items }) => (
-                <SkillsGroup key={group}>
-                    <div className="group">{group}</div>
-                    <div className="items">{items.join(" · ")}</div>
-                </SkillsGroup>
-            ))}
-        </Wrapper>
-    );
-};
+const Skills = () => (
+    <div className={styles.wrapper} data-testid="skills">
+        <div className={styles.intro}>Here are the tools I work with!</div>
+        {skills.map(({ group, items }) => (
+            <div className={`${entries.entry} ${entries.compact}`} key={group}>
+                <div className={entries.title}>{group}</div>
+                <div className={entries.desc}>{items.join(" · ")}</div>
+            </div>
+        ))}
+    </div>
+);
 
 const skills = [
-    {
-        group: "Languages",
-        items: ["TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3"],
-    },
+    { group: "Languages", items: ["TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3"] },
     {
         group: "Frameworks & Libraries",
-        items: ["React", "Next.js", "React Context API", "Lodash"],
+        items: ["React", "Next.js", "React Context API"],
     },
     {
         group: "Styling",
-        items: ["TailwindCSS", "Sass", "styled-components", "Responsive design"],
+        items: ["TailwindCSS", "Sass", "CSS Modules", "Responsive design"],
     },
     {
         group: "Design Systems & UI",
         items: ["Storybook", "Figma", "Accessibility (a11y)", "Component libraries"],
     },
-    {
-        group: "Content & Tooling",
-        items: ["Strapi CMS", "Vite", "Git & GitHub", "Vitest"],
-    },
-    {
-        group: "CI/CD",
-        items: ["Jenkins pipelines", "Automated releases"],
-    },
+    { group: "Content & Tooling", items: ["Strapi CMS", "Vite", "Git & GitHub", "Vitest"] },
+    { group: "CI/CD", items: ["Jenkins pipelines", "Automated releases"] },
     {
         group: "Project Management",
         items: [
@@ -53,10 +42,7 @@ const skills = [
         group: "Performance & SEO",
         items: ["Web performance optimization", "SEO best practices"],
     },
-    {
-        group: "Spoken Languages",
-        items: ["English", "Spanish", "Catalan"],
-    },
+    { group: "Spoken Languages", items: ["English", "Spanish", "Catalan"] },
 ];
 
 export default Skills;

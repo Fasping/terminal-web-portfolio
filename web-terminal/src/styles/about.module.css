@@ -1,0 +1,20 @@
+.wrapper {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  max-width: 720px;
+}
+
+.wrapper p {
+  margin-top: 0.5rem;
+  line-height: 1.5rem;
+  text-wrap: pretty;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.alt {
+  font-weight: 700;
+  color: var(--color-primary);
+}

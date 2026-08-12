@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { OutputContainer, UsageDiv } from "./styles/Output.styled";
+import { useContext } from "react";
+import styles from "../styles/output.module.css";
 import { termContext } from "./Terminal";
 import About from "./commands/About";
 import Clear from "./commands/Clear";
@@ -21,16 +21,20 @@ type Props = {
     cmd: string;
 };
 
-const Output: React.FC<Props> = ({ index, cmd }) => {
+/** Commands that take arguments; everything else rejects them. */
+const commandsWithArgs = ["socials", "themes", "echo"];
+
+const Output = ({ index, cmd }: Props) => {
     const { arg } = useContext(termContext);
 
-    const specialCmds = ["projects", "socials", "themes", "echo"];
+    if (!commandsWithArgs.includes(cmd) && arg.length > 0)
+        return (
+            <div className={styles.usage} data-testid="usage-output">
+                Usage: {cmd}
+            </div>
+        );
 
-    // Return 'Usage: <cmd>' if command arg is not valid (e.g., about tt)
-    if (!specialCmds.includes(cmd) && arg.length > 0)
-        return <UsageDiv data-testid="usage-output">Usage: {cmd}</UsageDiv>;
-
-    const commandsMap: { [key: string]: JSX.Element } = {
+    const commandsMap: Record<string, JSX.Element> = {
         about: <About />,
         clear: <Clear />,
         cv: <Resume />,
@@ -48,12 +52,13 @@ const Output: React.FC<Props> = ({ index, cmd }) => {
         whoami: <GeneralOutput>visitor</GeneralOutput>,
     };
 
-    const outputComponent = commandsMap[cmd];
-
     return (
-        <OutputContainer data-testid={index === 0 ? "latest-output" : null}>
-            {outputComponent}
-        </OutputContainer>
+        <div
+            className={styles.container}
+            data-testid={index === 0 ? "latest-output" : undefined}
+        >
+            {commandsMap[cmd]}
+        </div>
     );
 };
 

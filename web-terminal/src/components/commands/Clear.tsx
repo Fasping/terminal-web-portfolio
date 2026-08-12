@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
-import { UsageDiv } from "../styles/Output.styled";
+import { useContext, useEffect } from "react";
+import styles from "../../styles/output.module.css";
 import { termContext } from "../Terminal";
 
-const Clear: React.FC = () => {
+const Clear = () => {
     const { arg, clearHistory } = useContext(termContext);
 
     useEffect(() => {
@@ -11,7 +11,7 @@ const Clear: React.FC = () => {
         }
     }, [arg.length, clearHistory]);
 
-    return arg.length > 0 ? <UsageDiv>Usage: clear</UsageDiv> : null;
+    return arg.length > 0 ? <div className={styles.usage}>Usage: clear</div> : null;
 };
 
 export default Clear;

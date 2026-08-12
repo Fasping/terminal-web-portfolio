@@ -1,17 +1,15 @@
-import { createContext, useEffect, useState } from "react";
-import { DefaultTheme, ThemeProvider } from "styled-components";
+import { createContext, useEffect } from "react";
 import { useTheme } from "./hooks/useTheme";
-import GlobalStyle from "./components/styles/GlobalStyle";
 import Terminal from "./components/Terminal";
 import TerminalWindow from "./components/TerminalWindow";
+import { ThemeName } from "./themes";
 
-type ThemeSwitcher = (switchTheme: DefaultTheme) => void;
+type ThemeSwitcher = (theme: ThemeName) => void;
 
-export const ThemeContext = createContext<ThemeSwitcher>(() => { }); // Provide a dummy function for compatibility
+export const ThemeContext = createContext<ThemeSwitcher>(() => {});
 
 function App() {
-  const { theme, themeLoaded, setMode } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState<DefaultTheme>(theme);
+  const { theme, setMode } = useTheme();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -27,46 +25,33 @@ function App() {
     };
   }, []);
 
+  // Keep the browser chrome (mobile address bar, pinned tab) in sync with the theme.
   useEffect(() => {
-    setSelectedTheme(theme);
-  }, [themeLoaded, theme]);
+    const bodyColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--color-body")
+      .trim();
 
-  useEffect(() => {
-    const updateMetaTagColors = () => {
-      const themeColor = selectedTheme.colors?.body;
+    if (!bodyColor) return;
 
-      const metaThemeColor = document.querySelector("meta[name='theme-color']");
-      const maskIcon = document.querySelector("link[rel='mask-icon']");
-      const metaMsTileColor = document.querySelector("meta[name='msapplication-TileColor']");
-
-      if (metaThemeColor) metaThemeColor.setAttribute("content", themeColor);
-      if (maskIcon) maskIcon.setAttribute("color", themeColor);
-      if (metaMsTileColor) metaMsTileColor.setAttribute("content", themeColor);
-    };
-
-    updateMetaTagColors();
-  }, [selectedTheme]);
-
-  const themeSwitcher: ThemeSwitcher = (switchTheme) => {
-    setSelectedTheme(switchTheme);
-    setMode(switchTheme);
-  };
+    document
+      .querySelector("meta[name='theme-color']")
+      ?.setAttribute("content", bodyColor);
+    document
+      .querySelector("meta[name='msapplication-TileColor']")
+      ?.setAttribute("content", bodyColor);
+    document.querySelector("link[rel='mask-icon']")?.setAttribute("color", bodyColor);
+  }, [theme]);
 
   return (
     <>
       <h1 className="sr-only" aria-label="Terminal Portfolio">
         Terminal Portfolio
       </h1>
-      {themeLoaded && (
-        <ThemeProvider theme={selectedTheme}>
-          <GlobalStyle theme={selectedTheme} />
-          <ThemeContext.Provider value={themeSwitcher}>
-            <TerminalWindow>
-              <Terminal />
-            </TerminalWindow>
-          </ThemeContext.Provider>
-        </ThemeProvider>
-      )}
+      <ThemeContext.Provider value={setMode}>
+        <TerminalWindow>
+          <Terminal />
+        </TerminalWindow>
+      </ThemeContext.Provider>
     </>
   );
 }

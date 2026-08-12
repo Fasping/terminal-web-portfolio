@@ -1,0 +1,48 @@
+.wrapper {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/*
+ * A grid keeps the command column aligned at any width, which the old
+ * &nbsp;-based generateTabs() could not do.
+ */
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+  gap: 0.25rem 1.5rem;
+  align-items: baseline;
+}
+
+.cmd {
+  color: var(--color-primary);
+}
+
+.desc {
+  color: var(--color-text-200);
+}
+
+@media (max-width: 550px) {
+  .list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 0;
+  }
+
+  .desc {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.keys {
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+  gap: 0.25rem 1.5rem;
+}
+
+@media (max-width: 550px) {
+  .keys {
+    display: none;
+  }
+}

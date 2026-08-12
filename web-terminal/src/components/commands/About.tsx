@@ -1,55 +1,39 @@
-import {
-    AboutWrapper,
-    HighlightAlt,
-    HighlightSpan,
-} from "../styles/About.styled";
+import styles from "../../styles/about.module.css";
 
-const About: React.FC = () => {
-    return (
-        <AboutWrapper data-testid="about">
-            <p>
-                Hi, my name is <HighlightSpan>Fernando Cases</HighlightSpan> — most
-                people call me Nando!
-            </p>
-            <p>
-                I'm a{" "}
-                <HighlightAlt>
-                    Frontend Developer &amp; Technical Project Manager
-                </HighlightAlt>{" "}
-                based in Madrid, Spain.
-            </p>
-            <p>
-                I build web products and I keep teams moving so things actually ship.
-                <br />
-                I learned to code in Berlin, spent four years working in Stockholm,
-                <br />
-                and I'm now based in Madrid.
-            </p>
-            <p>
-                Day to day I live in <HighlightAlt>React</HighlightAlt> and{" "}
-                <HighlightAlt>TypeScript</HighlightAlt>, and I also handle the planning
-                side:
-                <br />
-                sprints, backlogs, and keeping design, product and engineering talking
-                to each other.
-            </p>
-            <p>
-                Outside of tech I run <HighlightAlt>Planka Records</HighlightAlt>, my own
-                vinyl label,
-                <br />
-                which taught me more about deadlines and budgets than any tool ever did.
-                <br />
-                The rest of the time I'm making music with synths, playing padel or
-                traveling.
-            </p>
-            <p>
-                Always up for a chat or for building something new. Type{" "}
-                <HighlightSpan>experience</HighlightSpan>,{" "}
-                <HighlightSpan>skills</HighlightSpan> or{" "}
-                <HighlightSpan>resume</HighlightSpan> to know more.
-            </p>
-        </AboutWrapper>
-    );
-};
+const About = () => (
+    <div className={styles.wrapper} data-testid="about">
+        <p>
+            Hi, my name is <span className={styles.name}>Fernando Cases</span> — most
+            people call me Nando!
+        </p>
+        <p>
+            I'm a <span className={styles.alt}>Frontend Developer &amp; Technical Project Manager</span>{" "}
+            based in Madrid, Spain.
+        </p>
+        <p>
+            I build web products and I keep teams moving so things actually ship. I
+            learned to code in Berlin, spent four years working in Stockholm, and I'm
+            now based in Madrid.
+        </p>
+        <p>
+            Day to day I live in <span className={styles.alt}>React</span> and{" "}
+            <span className={styles.alt}>TypeScript</span>, and I also handle the
+            planning side: sprints, backlogs, and keeping design, product and
+            engineering talking to each other.
+        </p>
+        <p>
+            Outside of tech I run <span className={styles.alt}>Planka Records</span>, my
+            own vinyl label, which taught me more about deadlines and budgets than any
+            tool ever did. The rest of the time I'm making music with synths, playing
+            padel or traveling.
+        </p>
+        <p>
+            Always up for a chat or for building something new. Type{" "}
+            <span className={styles.name}>experience</span>,{" "}
+            <span className={styles.name}>skills</span> or{" "}
+            <span className={styles.name}>resume</span> to know more.
+        </p>
+    </div>
+);
 
 export default About;

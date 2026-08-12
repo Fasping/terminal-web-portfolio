@@ -1,13 +1,5 @@
 import { ReactNode } from "react";
-import {
-    PageWrapper,
-    TitleBar,
-    TitleBarSpacer,
-    TrafficLights,
-    Window,
-    WindowBody,
-    WindowTitle,
-} from "./styles/Layout.styled";
+import styles from "../styles/layout.module.css";
 
 type Props = {
     title?: string;
@@ -15,20 +7,20 @@ type Props = {
 };
 
 const TerminalWindow = ({ title = "fernandocases — ~/portfolio — zsh", children }: Props) => (
-    <PageWrapper>
-        <Window>
-            <TitleBar>
-                <TrafficLights aria-hidden="true">
+    <div className={styles.page}>
+        <main className={styles.window}>
+            <header className={styles.titleBar}>
+                <div className={styles.lights} aria-hidden="true">
                     <span />
                     <span />
                     <span />
-                </TrafficLights>
-                <WindowTitle>{title}</WindowTitle>
-                <TitleBarSpacer aria-hidden="true" />
-            </TitleBar>
-            <WindowBody>{children}</WindowBody>
-        </Window>
-    </PageWrapper>
+                </div>
+                <div className={styles.title}>{title}</div>
+                <div className={styles.spacer} aria-hidden="true" />
+            </header>
+            <div className={styles.body}>{children}</div>
+        </main>
+    </div>
 );
 
 export default TerminalWindow;

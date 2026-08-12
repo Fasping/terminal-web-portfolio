@@ -1,21 +1,19 @@
-import { ExpIntro, ExpList } from "../styles/Experience.styled";
-import { Wrapper } from "../styles/Output.styled";
+import entries from "../../styles/entries.module.css";
+import styles from "../../styles/output.module.css";
 
-const Experience: React.FC = () => {
-    return (
-        <Wrapper data-testid="experience">
-            <ExpIntro>Here is my professional experience!</ExpIntro>
-            {experience.map(({ role, company, meta, desc }) => (
-                <ExpList key={`${company}-${role}`}>
-                    <div className="role">{role}</div>
-                    <div className="company">{company}</div>
-                    <div className="meta">{meta}</div>
-                    <div className="desc">{desc}</div>
-                </ExpList>
-            ))}
-        </Wrapper>
-    );
-};
+const Experience = () => (
+    <div className={styles.wrapper} data-testid="experience">
+        <div className={styles.intro}>Here is my professional experience!</div>
+        {experience.map(({ role, company, meta, desc }) => (
+            <div className={entries.entry} key={`${company}-${role}`}>
+                <div className={entries.title}>{role}</div>
+                <div className={entries.highlight}>{company}</div>
+                <div className={entries.meta}>{meta}</div>
+                <div className={entries.desc}>{desc}</div>
+            </div>
+        ))}
+    </div>
+);
 
 const experience = [
     {

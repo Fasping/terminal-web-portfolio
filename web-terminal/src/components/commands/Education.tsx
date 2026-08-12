@@ -1,19 +1,17 @@
-import { EduIntro, EduList } from "../styles/Education.styled";
-import { Wrapper } from "../styles/Output.styled";
+import entries from "../../styles/entries.module.css";
+import styles from "../../styles/output.module.css";
 
-const Education: React.FC = () => {
-    return (
-        <Wrapper data-testid="education">
-            <EduIntro>Here is my education background!</EduIntro>
-            {eduBg.map(({ title, desc }) => (
-                <EduList key={title}>
-                    <div className="title">{title}</div>
-                    <div className="desc">{desc}</div>
-                </EduList>
-            ))}
-        </Wrapper>
-    );
-};
+const Education = () => (
+    <div className={styles.wrapper} data-testid="education">
+        <div className={styles.intro}>Here is my education background!</div>
+        {eduBg.map(({ title, desc }) => (
+            <div className={`${entries.entry} ${entries.compact}`} key={title}>
+                <div className={entries.title}>{title}</div>
+                <div className={entries.desc}>{desc}</div>
+            </div>
+        ))}
+    </div>
+);
 
 const eduBg = [
     {

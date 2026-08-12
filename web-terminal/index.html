@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,14 @@
     <title>Fernando Cases | Frontend Developer &amp; Technical Project Manager</title>
   </head>
   <body>
+    <script>
+      // Restore the saved theme before first paint, otherwise the default
+      // palette flashes on every reload.
+      try {
+        var saved = localStorage.getItem("tsn-theme");
+        if (saved) document.documentElement.dataset.theme = saved;
+      } catch (e) {}
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,0 +1,31 @@
+/* Shared layout for education, experience and skills entries. */
+.entry {
+  margin-bottom: 1.25rem;
+  max-width: 640px;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 0.275rem;
+}
+
+.highlight {
+  color: var(--color-primary);
+  margin-bottom: 0.275rem;
+}
+
+.meta {
+  color: var(--color-text-200);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.desc {
+  color: var(--color-text-200);
+  line-height: 1.5rem;
+  text-wrap: pretty;
+}
+
+.compact {
+  margin-bottom: 1rem;
+}
