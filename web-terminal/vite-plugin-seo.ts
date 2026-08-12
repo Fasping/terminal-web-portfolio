@@ -19,9 +19,9 @@ const escape = (value: string) =>
 export const seo = (): Plugin => ({
   name: "inject-seo",
   transformIndexHtml() {
-    const personSchema = {
-      "@context": "https://schema.org",
+    const person = {
       "@type": "Person",
+      "@id": `${profile.siteUrl}/#person`,
       name: profile.name,
       alternateName: profile.nickname,
       jobTitle: profile.role,
@@ -38,6 +38,29 @@ export const seo = (): Plugin => ({
         "@type": "Organization",
         name: company,
       })),
+    };
+
+    // A ProfilePage wrapping the Person is what Google expects for a personal
+    // site; the WebSite node makes the name of the site itself indexable.
+    const graph = {
+      "@context": "https://schema.org",
+      "@graph": [
+        person,
+        {
+          "@type": "ProfilePage",
+          "@id": `${profile.siteUrl}/#page`,
+          url: profile.siteUrl,
+          name: `${profile.name} — ${profile.role}`,
+          mainEntity: { "@id": `${profile.siteUrl}/#person` },
+          inLanguage: "en",
+        },
+        {
+          "@type": "WebSite",
+          url: profile.siteUrl,
+          name: `${profile.name} — terminal portfolio`,
+          publisher: { "@id": `${profile.siteUrl}/#person` },
+        },
+      ],
     };
 
     const fallback = `
@@ -82,7 +105,7 @@ export const seo = (): Plugin => ({
       {
         tag: "script",
         attrs: { type: "application/ld+json" },
-        children: JSON.stringify(personSchema),
+        children: JSON.stringify(graph),
         injectTo: "head" as const,
       },
       {
