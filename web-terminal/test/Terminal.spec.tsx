@@ -53,6 +53,18 @@ describe("Terminal", () => {
             await userEvent.type(screen.getByTitle("terminal-input"), "{ArrowUp}");
             expect(screen.getByTitle("terminal-input")).toHaveValue("skills");
         });
+
+        it("keeps focus on the prompt while browsing history", async () => {
+            await run("skills");
+            await userEvent.type(screen.getByTitle("terminal-input"), "{ArrowUp}");
+            expect(screen.getByTitle("terminal-input")).toHaveFocus();
+        });
+
+        it("exposes the output as a live region", () => {
+            const terminal = screen.getByTestId("terminal-wrapper");
+            expect(terminal).toHaveAttribute("role", "log");
+            expect(terminal).toHaveAttribute("aria-live", "polite");
+        });
     });
 
     describe("content commands", () => {

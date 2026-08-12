@@ -6,6 +6,7 @@ export const profile = {
   email: "nandocasesgarcia@gmail.com",
   resumeUrl: "/Fernando-Cases-CV.pdf",
   repoUrl: "https://github.com/Fasping/terminal-web-portfolio",
+  siteUrl: "https://terminal-nando-web-portfolio.vercel.app",
   host: "terminal.fernandocases.dev",
   user: "visitor",
   version: "2.1.0",

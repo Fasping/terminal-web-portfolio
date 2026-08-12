@@ -16,11 +16,20 @@ const Terminal = () => {
     const [hints, setHints] = useState<string[]>([]);
     const [pointer, setPointer] = useState<number>(-1);
 
+    // Clicking anywhere focuses the prompt, but not at the cost of losing a
+    // text selection or swallowing a click on a link.
     useEffect(() => {
-        const handleDivClick = () => inputRef.current?.focus();
+        const handleDocumentClick = (e: MouseEvent) => {
+            const target = e.target as HTMLElement | null;
 
-        document.addEventListener("click", handleDivClick);
-        return () => document.removeEventListener("click", handleDivClick);
+            if (target?.closest("a, button")) return;
+            if (window.getSelection()?.toString()) return;
+
+            inputRef.current?.focus();
+        };
+
+        document.addEventListener("click", handleDocumentClick);
+        return () => document.removeEventListener("click", handleDocumentClick);
     }, []);
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,14 +82,16 @@ const Terminal = () => {
             if (ctrlL) clearHistory();
 
             if (e.key === "ArrowUp") {
+                // Stops the caret jumping to the start of the input.
+                e.preventDefault();
                 if (pointer + 1 >= cmdHistory.length) return;
 
                 setInputValue(cmdHistory[pointer + 1]);
                 setPointer(prev => prev + 1);
-                inputRef.current?.blur();
             }
 
             if (e.key === "ArrowDown") {
+                e.preventDefault();
                 if (pointer < 0) return;
 
                 if (pointer === 0) {
@@ -91,7 +102,6 @@ const Terminal = () => {
 
                 setInputValue(cmdHistory[pointer - 1]);
                 setPointer(prev => prev - 1);
-                inputRef.current?.blur();
             }
         },
         [inputValue, cmdHistory, pointer, clearHistory]
@@ -103,7 +113,14 @@ const Terminal = () => {
     }, []);
 
     return (
-        <div className={styles.wrapper} data-testid="terminal-wrapper" ref={containerRef}>
+        <div
+            className={styles.wrapper}
+            data-testid="terminal-wrapper"
+            ref={containerRef}
+            role="log"
+            aria-live="polite"
+            aria-label="Terminal output"
+        >
             {hints.length > 1 && (
                 <div>
                     {hints.map(hint => (
