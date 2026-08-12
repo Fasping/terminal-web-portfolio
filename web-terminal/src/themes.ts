@@ -14,7 +14,10 @@ export type ThemeName = (typeof THEMES)[number];
 
 export const DEFAULT_THEME: ThemeName = "dark";
 
-export const THEME_STORAGE_KEY = "tsn-theme";
+export const THEME_STORAGE_KEY = "terminal-theme";
+
+/** Previous key, read once so saved themes survive the rename. */
+export const LEGACY_THEME_STORAGE_KEY = "tsn-theme";
 
 export const isThemeName = (value: unknown): value is ThemeName =>
   typeof value === "string" && (THEMES as readonly string[]).includes(value);

@@ -38,7 +38,8 @@
       // Restore the saved theme before first paint, otherwise the default
       // palette flashes on every reload.
       try {
-        var saved = localStorage.getItem("tsn-theme");
+        var saved =
+          localStorage.getItem("terminal-theme") || localStorage.getItem("tsn-theme");
         if (saved) document.documentElement.dataset.theme = saved;
       } catch (e) {}
     </script>

@@ -3,6 +3,7 @@ import {
   applyTheme,
   DEFAULT_THEME,
   isThemeName,
+  LEGACY_THEME_STORAGE_KEY,
   THEME_STORAGE_KEY,
   ThemeName,
 } from "../themes";
@@ -10,7 +11,7 @@ import { getFromLS, setToLS } from "../utils/storage";
 
 /** Read synchronously so the first render already has the right theme. */
 const readStoredTheme = (): ThemeName => {
-  const stored = getFromLS(THEME_STORAGE_KEY);
+  const stored = getFromLS(THEME_STORAGE_KEY) ?? getFromLS(LEGACY_THEME_STORAGE_KEY);
   return isThemeName(stored) ? stored : DEFAULT_THEME;
 };
 
