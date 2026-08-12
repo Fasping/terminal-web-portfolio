@@ -1,4 +1,5 @@
 import { createContext, useEffect } from "react";
+import { profile } from "./data/profile";
 import { useTheme } from "./hooks/useTheme";
 import Terminal from "./components/Terminal";
 import TerminalWindow from "./components/TerminalWindow";
@@ -10,20 +11,6 @@ export const ThemeContext = createContext<ThemeSwitcher>(() => {});
 
 function App() {
   const { theme, setMode } = useTheme();
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (["ArrowUp", "ArrowDown"].includes(e.code)) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
 
   // Keep the browser chrome (mobile address bar, pinned tab) in sync with the theme.
   useEffect(() => {
@@ -44,8 +31,8 @@ function App() {
 
   return (
     <>
-      <h1 className="sr-only" aria-label="Terminal Portfolio">
-        Terminal Portfolio
+      <h1 className="sr-only">
+        {profile.name} — {profile.role}
       </h1>
       <ThemeContext.Provider value={setMode}>
         <TerminalWindow>

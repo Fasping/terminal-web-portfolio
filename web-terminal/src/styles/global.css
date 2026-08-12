@@ -1,3 +1,12 @@
+:root {
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Reset + base, previously createGlobalStyle in GlobalStyle.tsx */
 
 *,
@@ -104,4 +113,24 @@ input[type="text"]:focus-visible {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+/*
+ * Crawlers and no-JS visitors get the same content as plain HTML,
+ * injected at build time from src/data by vite-plugin-seo.
+ */
+.seo-fallback {
+  display: block;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+  line-height: 1.6;
+}
+
+.seo-fallback a {
+  color: var(--color-secondary);
+}
+
+.seo-fallback li {
+  margin-bottom: 1rem;
 }
