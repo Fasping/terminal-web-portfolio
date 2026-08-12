@@ -1,41 +1,46 @@
 # Terminal Web Portfolio
 
-Personal portfolio of **Fernando Cases (Nando)** — Frontend Developer & Technical Project Manager based in Madrid, Spain — designed as a terminal interface and built using React, TypeScript, and Styled-Components. It offers multiple themes, autocomplete functionality, command navigation, command history view, offline capability, and testing.
+A portfolio website that behaves like a terminal: type a command, get an answer.
+Built with React, TypeScript and CSS Modules, with eight themes, tab completion,
+command history and a content layer you can swap for your own in a few minutes.
 
-**Live:** [terminal-nando-web-portfolio.vercel.app](https://terminal-nando-web-portfolio.vercel.app/)
+**Live demo:** [terminal-nando-web-portfolio.vercel.app](https://terminal-nando-web-portfolio.vercel.app/)
 
 [![CI](https://github.com/Fasping/terminal-web-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Fasping/terminal-web-portfolio/actions/workflows/ci.yml)
 
-## Available Commands
+## Commands
 
 | Command | Description |
 | --- | --- |
-| `about` | Who I am, in short |
-| `experience` | Professional experience |
+| `about` | Short introduction |
+| `experience` | Work history |
 | `skills` | Tech stack and tools |
 | `education` | Education background |
-| `resume` / `cv` | Open my resume (PDF) |
-| `socials` | GitHub & LinkedIn (`socials go 1`) |
-| `email` | Send me an email |
-| `themes` | Switch theme (`themes set ubuntu`) |
-| `help` | List all commands |
+| `resume` / `cv` | Open the CV (PDF) |
+| `socials` | Links, opened with `socials go 1` |
+| `email` | Opens the mail client |
+| `themes` | Switch theme, `themes set ubuntu` |
+| `help` | List every command |
 | `history`, `echo`, `clear`, `welcome`, `whoami` | Terminal utilities |
 
 ## Features
 
-- **Responsive design:** works from phones to ultrawide screens.
-- **8 themes:** stored in `localStorage` and applied before first paint, so there's no flash on reload.
-- **Autocomplete:** commands and their arguments, via TAB or Ctrl + i.
+- **Responsive:** works from phones to ultrawide screens.
+- **8 themes:** saved to `localStorage` and applied before first paint, so there is no flash on reload.
+- **Tab completion:** for commands and their arguments, via TAB or Ctrl + i.
 - **Command history:** arrow keys to navigate, `history` to list it.
+- **Search-engine friendly:** the content is also emitted as plain HTML and JSON-LD at build time.
 - **Self-hosted font:** IBM Plex Mono, latin subset only.
 
-## Tech Stack
+## Tech stack
 
 - **Frontend:** [React](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** CSS Modules + CSS custom properties (themes are one `data-theme` attribute on `<html>`)
+- **Styling:** CSS Modules + CSS custom properties — a theme is one `data-theme` attribute on `<html>`
 - **Build:** [Vite](https://vite.dev/)
 - **State:** React Context API
 - **Testing:** [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/), run on every PR by GitHub Actions
+
+No runtime UI dependencies: no CSS-in-JS, no utility library.
 
 ## Project structure
 
@@ -44,50 +49,48 @@ src/
 ├── commands/registry.tsx   single source of truth: name, description, component, arguments
 ├── components/             terminal shell + one component per command
 ├── context/                terminal context (history, args, rerender)
-├── data/                   CV content: experience, skills, education, socials, profile
+├── data/                   the content: experience, skills, education, socials, profile
 ├── hooks/                  useTheme
 └── styles/                 global.css, themes.css and one *.module.css per area
 ```
 
-Adding a command means one entry in `commands/registry.tsx`; `help`, argument
-validation and tab completion all read from it.
+## Running locally
 
-## Themes
+```bash
+git clone https://github.com/Fasping/terminal-web-portfolio.git
+cd terminal-web-portfolio/web-terminal
+npm install
+npm run dev
+```
 
-`dark` · `light` · `blue-matrix` · `espresso` · `green-goblin` · `ubuntu` · `tokyo-night` · `catppuccin`
+Other scripts: `npm run lint`, `npm test`, `npm run build`.
 
-Switch with `themes set <name>`.
+## Make it yours
 
-## Running Locally
+Fork it and edit these files — no component code needed:
 
-To run the project locally, follow these steps:
+| What | Where |
+| --- | --- |
+| Name, role, email, prompt host, resume URL, site URL | `src/data/profile.ts` |
+| Work history | `src/data/experience.ts` |
+| Skills | `src/data/skills.ts` |
+| Education | `src/data/education.ts` |
+| Social links | `src/data/socials.ts` |
+| The CV itself | drop your PDF in `public/` and point `profile.resumeUrl` at it |
+| ASCII banner | `src/components/commands/Welcome.tsx` — generate one at [patorjk.com](https://patorjk.com/software/taag/) |
+| Colours | `src/styles/themes.css`: one `[data-theme="…"]` block per theme, plus its `--swatch-…` |
+| Favicon and social preview | `public/favicon.svg`, `public/og-image.png` |
+| Meta tags and canonical URL | `index.html` |
+| Domain | `public/robots.txt` and `public/sitemap.xml` |
 
-1. **Clone the Repository:**
+The `<noscript>` fallback and the JSON-LD that search engines read are generated
+at build time from `src/data` by `vite-plugin-seo.ts`, so they follow your edits
+on their own.
 
-   ```bash
-   git clone https://github.com/Fasping/terminal-web-portfolio.git
-   ```
+**Adding a command** is one entry in `src/commands/registry.tsx`:
 
-2. **Navigate to the Project Directory:**
+```tsx
+{ cmd: "projects", desc: "things I've built", element: <Projects /> },
+```
 
-   ```bash
-   cd web-terminal
-   ```
-
-3. **Remove the Remote Origin (Optional):**
-
-   ```bash
-   git remote remove origin
-   ```
-
-4. **Install Dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-5. **Start the Development Server:**
-
-   ```bash
-   npm run dev
-   ```
+`help`, argument validation and tab completion all read from that array.
