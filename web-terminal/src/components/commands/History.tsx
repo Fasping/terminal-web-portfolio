@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { Wrapper } from "../styles/Output.styled";
+import styles from "../../styles/output.module.css";
 import { termContext } from "../Terminal";
 
-const History: React.FC = () => {
+const History = () => {
     const { history, index } = useContext(termContext);
     const reversedHistory = history.slice(index).reverse();
 
     return (
-        <Wrapper data-testid="history">
-            {reversedHistory.map((cmd: string, idx: number) => (
+        <div className={styles.wrapper} data-testid="history">
+            {reversedHistory.map((cmd, idx) => (
                 <div key={idx}>{cmd}</div>
             ))}
-        </Wrapper>
+        </div>
     );
 };
 

@@ -1,0 +1,112 @@
+/**
+ * Every theme is a set of custom properties on the <html> element.
+ * Switching themes is one attribute change: no React re-render, no JS colours.
+ */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-body: #1d2a35;
+  --color-scroll-handle: #19252e;
+  --color-scroll-handle-hover: #162028;
+  --color-primary: #05ce91;
+  --color-secondary: #ff9d00;
+  --color-text-100: #cbd5e1;
+  --color-text-200: #b2bdcc;
+  --color-text-300: #64748b;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --color-body: #eff3f3;
+  --color-scroll-handle: #c1c1c1;
+  --color-scroll-handle-hover: #aaaaaa;
+  --color-primary: #027474;
+  --color-secondary: #b06800;
+  --color-text-100: #334155;
+  --color-text-200: #475569;
+  --color-text-300: #64748b;
+}
+
+[data-theme="blue-matrix"] {
+  color-scheme: dark;
+  --color-body: #101116;
+  --color-scroll-handle: #424242;
+  --color-scroll-handle-hover: #616161;
+  --color-primary: #00ff9c;
+  --color-secondary: #60fdff;
+  --color-text-100: #ffffff;
+  --color-text-200: #c7c7c7;
+  --color-text-300: #76ff9f;
+}
+
+[data-theme="espresso"] {
+  color-scheme: dark;
+  --color-body: #323232;
+  --color-scroll-handle: #5b5b5b;
+  --color-scroll-handle-hover: #393939;
+  --color-primary: #e1e48b;
+  --color-secondary: #a5c260;
+  --color-text-100: #f7f7f7;
+  --color-text-200: #eeeeee;
+  --color-text-300: #8d8d8d;
+}
+
+[data-theme="green-goblin"] {
+  color-scheme: dark;
+  --color-body: #000000;
+  --color-scroll-handle: #2e2e2e;
+  --color-scroll-handle-hover: #414141;
+  --color-primary: #e5e500;
+  --color-secondary: #04a500;
+  --color-text-100: #01ff00;
+  --color-text-200: #04a5b2;
+  --color-text-300: #6b8f6b;
+}
+
+[data-theme="ubuntu"] {
+  color-scheme: dark;
+  --color-body: #2d0922;
+  --color-scroll-handle: #f47845;
+  --color-scroll-handle-hover: #e65f31;
+  --color-primary: #80d932;
+  --color-secondary: #ffb86c;
+  --color-text-100: #ffffff;
+  --color-text-200: #e1e9cc;
+  --color-text-300: #a98fa0;
+}
+
+[data-theme="tokyo-night"] {
+  color-scheme: dark;
+  --color-body: #1a1b26;
+  --color-scroll-handle: #292e42;
+  --color-scroll-handle-hover: #3b4261;
+  --color-primary: #7aa2f7;
+  --color-secondary: #bb9af7;
+  --color-text-100: #c0caf5;
+  --color-text-200: #a9b1d6;
+  --color-text-300: #565f89;
+}
+
+[data-theme="catppuccin"] {
+  color-scheme: dark;
+  --color-body: #1e1e2e;
+  --color-scroll-handle: #313244;
+  --color-scroll-handle-hover: #45475a;
+  --color-primary: #a6e3a1;
+  --color-secondary: #f5c2e7;
+  --color-text-100: #cdd6f4;
+  --color-text-200: #bac2de;
+  --color-text-300: #6c7086;
+}
+
+/** Preview dots for the `themes` command: each theme's primary colour. */
+:root {
+  --swatch-dark: #05ce91;
+  --swatch-light: #027474;
+  --swatch-blue-matrix: #00ff9c;
+  --swatch-espresso: #e1e48b;
+  --swatch-green-goblin: #e5e500;
+  --swatch-ubuntu: #80d932;
+  --swatch-tokyo-night: #7aa2f7;
+  --swatch-catppuccin: #a6e3a1;
+}

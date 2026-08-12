@@ -1,36 +1,43 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { CSSProperties } from "react";
 import { ThemeContext } from "../../App";
-import { Wrapper } from "../styles/Output.styled";
-import { ThemeSpan, ThemesWrapper } from "../styles/Themes.styled";
+import styles from "../../styles/themes.module.css";
+import output from "../../styles/output.module.css";
 import { checkThemeSwitch, getCurrentCmdArry, isArgInvalid } from "../../utils/funcs";
 import { termContext } from "../Terminal";
-import theme from "../styles/themes";
+import { THEMES, ThemeName } from "../../themes";
 import Usage from "../Usage";
 
-const Themes: React.FC = () => {
+const Themes = () => {
     const { arg, history, rerender } = useContext(termContext);
     const themeSwitcher = useContext(ThemeContext);
     const currentCommand = getCurrentCmdArry(history);
 
     useEffect(() => {
-        if (checkThemeSwitch(rerender, currentCommand, Object.keys(theme))) {
-            themeSwitcher?.(theme[currentCommand[2]]);
+        if (checkThemeSwitch(rerender, currentCommand, [...THEMES])) {
+            themeSwitcher(currentCommand[2] as ThemeName);
         }
     }, [arg, rerender, currentCommand, themeSwitcher]);
 
-    if (arg.length > 0 || arg.length > 2) {
-        return isArgInvalid(arg, "set", Object.keys(theme)) ? <Usage cmd="themes" /> : null;
+    if (arg.length > 0) {
+        return isArgInvalid(arg, "set", [...THEMES]) ? <Usage cmd="themes" /> : null;
     }
 
     return (
-        <Wrapper data-testid="themes">
-            <ThemesWrapper>
-                {Object.keys(theme).map(myTheme => (
-                    <ThemeSpan key={myTheme}>{myTheme}</ThemeSpan>
+        <div className={output.wrapper} data-testid="themes">
+            <div className={styles.list}>
+                {THEMES.map(theme => (
+                    <span
+                        key={theme}
+                        className={styles.theme}
+                        style={{ "--swatch": `var(--swatch-${theme})` } as CSSProperties}
+                    >
+                        {theme}
+                    </span>
                 ))}
-            </ThemesWrapper>
+            </div>
             <Usage cmd="themes" marginY />
-        </Wrapper>
+        </div>
     );
 };
 

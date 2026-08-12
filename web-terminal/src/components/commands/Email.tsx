@@ -1,22 +1,24 @@
-import { useContext } from "react";
-import _ from "lodash";
-import { Wrapper } from "../styles/Output.styled";
+import { useContext, useEffect } from "react";
+import styles from "../../styles/output.module.css";
 import { termContext } from "../Terminal";
 
-const Email: React.FC = () => {
+export const EMAIL = "nandocasesgarcia@gmail.com";
+
+const Email = () => {
     const { history, rerender } = useContext(termContext);
 
-    /* ===== get current command ===== */
-    const currentCommand = _.split(history[0], " ");
+    useEffect(() => {
+        const currentCommand = history[0]?.trim().split(" ") ?? [];
 
-    if (rerender && currentCommand[0] === "email" && currentCommand.length <= 1) {
-        window.open("mailto:" + "nandocasesgarcia@gmail.com", "_self");
-    }
+        if (rerender && currentCommand[0] === "email" && currentCommand.length <= 1) {
+            window.open(`mailto:${EMAIL}`, "_self");
+        }
+    }, [rerender, history]);
 
     return (
-        <Wrapper>
-            <span>nandocasesgarcia@gmail.com</span>
-        </Wrapper>
+        <div className={styles.wrapper} data-testid="email">
+            <span>{EMAIL}</span>
+        </div>
     );
 };
 

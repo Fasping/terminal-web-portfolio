@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useEffect, useRef, useState } from "
 import _ from "lodash";
 import Output from "./Output";
 import TermInfo from "./TermInfo";
-import { CmdNotFound, Empty, Form, Hints, Input, MobileBr, MobileSpan, Wrapper } from "./styles/Terminal.styled";
+import styles from "../styles/terminal.module.css";
 import { argTab } from "../utils/funcs";
 
 type Command = {
@@ -151,20 +151,21 @@ const Terminal = () => {
     }, []);
 
     return (
-        <Wrapper data-testid="terminal-wrapper" ref={containerRef}>
+        <div className={styles.wrapper} data-testid="terminal-wrapper" ref={containerRef}>
             {hints.length > 1 && (
                 <div>
                     {hints.map(hCmd => (
-                        <Hints key={hCmd}>{hCmd}</Hints>
+                        <span className={styles.hint} key={hCmd}>{hCmd}</span>
                     ))}
                 </div>
             )}
-            <Form onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <label htmlFor="terminal-input">
-                    <TermInfo /> <MobileBr />
-                    <MobileSpan>&#62;</MobileSpan>
+                    <TermInfo /> <br className={styles.mobileBr} />
+                    <span className={styles.mobileSpan}>&#62;</span>
                 </label>
-                <Input
+                <input
+                    className={styles.input}
                     title="terminal-input"
                     type="text"
                     id="terminal-input"
@@ -177,7 +178,7 @@ const Terminal = () => {
                     onKeyDown={handleKeyDown}
                     onChange={handleChange}
                 />
-            </Form>
+            </form>
 
             {cmdHistory.map((cmdH, index) => {
                 const commandArray = _.split(_.trim(cmdH), " ");
@@ -194,8 +195,8 @@ const Terminal = () => {
                     <div key={`${cmdH}_${index}`}>
                         <div>
                             <TermInfo />
-                            <MobileBr />
-                            <MobileSpan>&#62;</MobileSpan>
+                            <br className={styles.mobileBr} />
+                            <span className={styles.mobileSpan}>&#62;</span>
                             <span data-testid="input-command">{cmdH}</span>
                         </div>
                         {validCommand ? (
@@ -203,16 +204,16 @@ const Terminal = () => {
                                 <Output index={index} cmd={commandArray[0]} />
                             </termContext.Provider>
                         ) : cmdH === "" ? (
-                            <Empty />
+                            <div className={styles.empty} />
                         ) : (
-                            <CmdNotFound data-testid={`not-found-${index}`}>
+                            <div className={styles.notFound} data-testid={`not-found-${index}`}>
                                 command not found: {cmdH}
-                            </CmdNotFound>
+                            </div>
                         )}
                     </div>
                 );
             })}
-        </Wrapper>
+        </div>
     );
 };
 

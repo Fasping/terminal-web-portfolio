@@ -8,6 +8,8 @@ import '@fontsource/ibm-plex-mono/latin-500.css'
 import '@fontsource/ibm-plex-mono/latin-600.css'
 
 import App from './App.tsx'
+import './styles/themes.css'
+import './styles/global.css'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

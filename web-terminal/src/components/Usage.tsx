@@ -1,4 +1,4 @@
-import { UsageDiv } from "./styles/Output.styled";
+import styles from "../styles/output.module.css";
 
 type Props = {
     cmd: "themes" | "socials";
@@ -10,13 +10,17 @@ const arg = {
     socials: { placeholder: "social-no", example: "1" },
 };
 
-const Usage: React.FC<Props> = ({ cmd, marginY = false }) => {
+const Usage = ({ cmd, marginY = false }: Props) => {
     const action = cmd === "themes" ? "set" : "go";
+
     return (
-        <UsageDiv data-testid={`${cmd}-invalid-arg`} marginY={marginY}>
+        <div
+            data-testid={`${cmd}-invalid-arg`}
+            className={`${styles.usage} ${marginY ? styles.usageSpaced : ""}`}
+        >
             Usage: {cmd} {action} &lt;{arg[cmd].placeholder}&gt; <br />
             eg: {cmd} {action} {arg[cmd].example}
-        </UsageDiv>
+        </div>
     );
 };
 

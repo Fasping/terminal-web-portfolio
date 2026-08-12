@@ -1,21 +1,11 @@
-import React from "react";
-import {
-    Cmd,
-    HeroContainer,
-    Link,
-    PreName,
-    PreNameMobile,
-    PreWrapper,
-    Seperator,
-} from "../styles/Welcome.styled";
+import styles from "../../styles/welcome.module.css";
+import output from "../../styles/output.module.css";
 
-
-const Welcome: React.FC = () => {
-    return (
-        <HeroContainer data-testid="welcome">
-            <div className="info-section">
-                <PreName>
-                    {`
+const Welcome = () => (
+    <div className={styles.hero} data-testid="welcome">
+        <div className="info-section">
+            <pre className={styles.pre}>
+                {`
 ███████╗███████╗██████╗ ███╗   ██╗ █████╗ ███╗   ██╗██████╗  ██████╗      ██████╗ █████╗ ███████╗███████╗███████╗
 ██╔════╝██╔════╝██╔══██╗████╗  ██║██╔══██╗████╗  ██║██╔══██╗██╔═══██╗    ██╔════╝██╔══██╗██╔════╝██╔════╝██╔════╝
 █████╗  █████╗  ██████╔╝██╔██╗ ██║███████║██╔██╗ ██║██║  ██║██║   ██║    ██║     ███████║███████╗█████╗  ███████╗
@@ -23,39 +13,40 @@ const Welcome: React.FC = () => {
 ██║     ███████╗██║  ██║██║ ╚████║██║  ██║██║ ╚████║██████╔╝╚██████╔╝    ╚██████╗██║  ██║███████║███████╗███████║
 ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝      ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
           `}
-                </PreName>
-                <PreWrapper>
-                    <PreNameMobile>
-                        {`
+            </pre>
+            <div className={styles.preWrapper}>
+                <pre className={styles.preMobile}>
+                    {`
 ╔═╗╔═╗╦═╗╔╗╔╔═╗╔╗╔╔╦╗╔═╗  ╔═╗╔═╗╔═╗╔═╗╔═╗
 ╠╣ ║╣ ╠╦╝║║║╠═╣║║║ ║║║ ║  ║  ╠═╣╚═╗║╣ ╚═╗
 ╚  ╚═╝╩╚═╝╚╝╩ ╩╝╚╝═╩╝╚═╝  ╚═╝╩ ╩╚═╝╚═╝╚═╝
                      `}
-                    </PreNameMobile>
-                </PreWrapper>
-                <div>Welcome to my terminal portfolio. (Version 2.1.0)</div>
-                <Seperator>----</Seperator>
-                <div>
-                    This project's source code can be found in this project's{" "}
-                    <Link href="https://github.com/Fasping/terminal-web-portfolio">
-                        GitHub repo
-                    </Link>
-                    .
-                </div>
-                <Seperator>----</Seperator>
-                <div>
-                    Frontend Developer &amp; Technical Project Manager — Madrid, Spain.
-                </div>
-                <Seperator>----</Seperator>
-                <div>
-                    For a list of available commands, type `<Cmd>help</Cmd>`. Start with{" "}
-                    `<Cmd>about</Cmd>`, `<Cmd>experience</Cmd>`, `<Cmd>skills</Cmd>` or{" "}
-                    `<Cmd>resume</Cmd>`.
-                </div>
+                </pre>
             </div>
-
-        </HeroContainer>
-    );
-};
+            <div>Welcome to my terminal portfolio. (Version 2.1.0)</div>
+            <div className={styles.separator}>----</div>
+            <div>
+                This project's source code can be found in this project's{" "}
+                <a
+                    className={output.link}
+                    href="https://github.com/Fasping/terminal-web-portfolio"
+                >
+                    GitHub repo
+                </a>
+                .
+            </div>
+            <div className={styles.separator}>----</div>
+            <div>Frontend Developer &amp; Technical Project Manager — Madrid, Spain.</div>
+            <div className={styles.separator}>----</div>
+            <div>
+                For a list of available commands, type `<span className={styles.cmd}>help</span>
+                `. Start with `<span className={styles.cmd}>about</span>`, `
+                <span className={styles.cmd}>experience</span>`, `
+                <span className={styles.cmd}>skills</span>` or `
+                <span className={styles.cmd}>resume</span>`.
+            </div>
+        </div>
+    </div>
+);
 
 export default Welcome;

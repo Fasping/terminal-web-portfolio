@@ -1,0 +1,36 @@
+.container {
+  padding-bottom: 0.25rem;
+}
+
+.wrapper {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.usage {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5rem;
+}
+
+.usageSpaced {
+  margin-top: 0.75rem;
+}
+
+/* Short lead-in line above a list of entries. */
+.intro {
+  margin-bottom: 1rem;
+  line-height: 1.5rem;
+}
+
+.link {
+  color: var(--color-secondary);
+  text-decoration: none;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  border-bottom: 2px dashed var(--color-secondary);
+}
+
+.link:hover {
+  border-bottom-style: solid;
+}

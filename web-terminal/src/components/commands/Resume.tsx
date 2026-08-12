@@ -1,12 +1,11 @@
 import { useContext, useEffect } from "react";
-import { Wrapper } from "../styles/Output.styled";
-import { Link } from "../styles/Welcome.styled";
+import styles from "../../styles/output.module.css";
 import { getCurrentCmdArry } from "../../utils/funcs";
 import { termContext } from "../Terminal";
 
 export const RESUME_URL = "/Fernando-Cases-CV.pdf";
 
-const Resume: React.FC = () => {
+const Resume = () => {
     const { history, rerender } = useContext(termContext);
     const currentCommand = getCurrentCmdArry(history);
 
@@ -21,15 +20,15 @@ const Resume: React.FC = () => {
     }, [rerender, currentCommand]);
 
     return (
-        <Wrapper data-testid="resume">
+        <div className={styles.wrapper} data-testid="resume">
             <div>Opening my resume in a new tab...</div>
             <div>
                 If nothing happens, grab it here:{" "}
-                <Link href={RESUME_URL} target="_blank" rel="noreferrer">
+                <a className={styles.link} href={RESUME_URL} target="_blank" rel="noreferrer">
                     Fernando Cases — CV (PDF)
-                </Link>
+                </a>
             </div>
-        </Wrapper>
+        </div>
     );
 };
 

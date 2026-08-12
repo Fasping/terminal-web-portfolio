@@ -1,5 +1,5 @@
 import _ from "lodash";
-import theme from "../components/styles/themes";
+import { THEMES } from "../themes";
 
 /**
  * Generates html tabs
@@ -106,13 +106,13 @@ export const argTab = (
 
   // 3) if input is 'themes set '
   else if (inputVal === "themes set ") {
-    setHints(_.keys(theme));
+    setHints([...THEMES]);
     return [];
   }
 
   // 4) if input starts with 'themes set ' + theme
   else if (_.startsWith(inputVal, "themes set ")) {
-    _.keys(theme).forEach(t => {
+    THEMES.forEach(t => {
       if (_.startsWith(t, _.split(inputVal, " ")[2])) {
         hintsCmds = [...hintsCmds, t];
       }

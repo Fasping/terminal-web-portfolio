@@ -1,0 +1,72 @@
+.wrapper {
+  flex: 1;
+  min-height: 0;
+  padding: 1.25rem;
+  padding-top: 0.75rem;
+
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 550px) {
+  .wrapper {
+    padding: 1rem;
+    padding-top: 0.5rem;
+  }
+}
+
+.notFound {
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.empty {
+  margin-bottom: 0.25rem;
+}
+
+.mobileSpan {
+  line-height: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+@media (min-width: 550px) {
+  .mobileSpan,
+  .mobileBr {
+    display: none;
+  }
+}
+
+@media (min-width: 550px) {
+  .form {
+    display: flex;
+  }
+}
+
+.input {
+  flex-grow: 1;
+}
+
+@media (max-width: 550px) {
+  .input {
+    min-width: 85%;
+  }
+}
+
+.hint {
+  margin-right: 0.875rem;
+}
+
+.termInfo {
+  display: inline-block;
+  margin-right: 0.75rem;
+}
+
+.user {
+  color: var(--color-secondary);
+}
+
+.website {
+  color: var(--color-primary);
+}

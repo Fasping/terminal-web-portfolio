@@ -1,17 +1,19 @@
 import { useContext } from "react";
-import _ from "lodash";
-import { Wrapper } from "../styles/Output.styled";
+import styles from "../../styles/output.module.css";
 import { termContext } from "../Terminal";
 
-const Echo: React.FC = () => {
+/** Strips one layer of matching quotes or backticks around the text. */
+const unquote = (value: string) => {
+    const quotes = ["'", '"', "`"];
+    return quotes.some(q => value.startsWith(q) && value.endsWith(q) && value.length > 1)
+        ? value.slice(1, -1)
+        : value;
+};
+
+const Echo = () => {
     const { arg } = useContext(termContext);
 
-    let outputStr = _.join(arg, " ");
-    outputStr = _.trim(outputStr, "'"); // remove trailing single quotes ''
-    outputStr = _.trim(outputStr, '"'); // remove trailing double quotes ""
-    outputStr = _.trim(outputStr, "`"); // remove trailing backtick ``
-
-    return <Wrapper>{outputStr}</Wrapper>;
+    return <div className={styles.wrapper}>{unquote(arg.join(" "))}</div>;
 };
 
 export default Echo;

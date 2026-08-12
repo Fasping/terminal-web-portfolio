@@ -1,25 +1,33 @@
-import { useEffect, useState } from "react";
-import themes from "../components/styles/themes";
-import { setToLS, getFromLS } from "../utils/storage";
-import { DefaultTheme } from "styled-components";
+import { useCallback, useEffect, useState } from "react";
+import {
+  applyTheme,
+  DEFAULT_THEME,
+  isThemeName,
+  THEME_STORAGE_KEY,
+  ThemeName,
+} from "../themes";
+import { getFromLS, setToLS } from "../utils/storage";
 
-type ThemeName = keyof typeof themes;
+/** Read synchronously so the first render already has the right theme. */
+const readStoredTheme = (): ThemeName => {
+  const stored = getFromLS(THEME_STORAGE_KEY);
+  return isThemeName(stored) ? stored : DEFAULT_THEME;
+};
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState<DefaultTheme>(themes.dark);
-  const [themeLoaded, setThemeLoaded] = useState<boolean>(false);
+  const [theme, setTheme] = useState<ThemeName>(readStoredTheme);
 
-  const setMode = (mode: DefaultTheme) => {
-    setToLS("tsn-theme", mode.name);
-    setTheme(mode);
-  };
-
+  // The inline script in index.html already set this before first paint;
+  // this keeps it correct if storage and DOM ever disagree.
   useEffect(() => {
-    const localThemeName = getFromLS("tsn-theme") as ThemeName | null;
-    const selectedTheme = localThemeName ? themes[localThemeName] : themes.dark;
-    setTheme(selectedTheme);
-    setThemeLoaded(true);
+    applyTheme(theme);
+  }, [theme]);
+
+  const setMode = useCallback((mode: ThemeName) => {
+    applyTheme(mode);
+    setToLS(THEME_STORAGE_KEY, mode);
+    setTheme(mode);
   }, []);
 
-  return { theme, themeLoaded, setMode };
+  return { theme, setMode };
 };

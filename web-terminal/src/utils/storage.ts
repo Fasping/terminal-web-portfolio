@@ -1,12 +1,19 @@
+/**
+ * localStorage throws in Safari private mode and when storage is disabled,
+ * so every access is guarded.
+ */
 export const setToLS = (key: string, value: string) => {
-  // window.localStorage.setItem(key, JSON.stringify(value));
-  window.localStorage.setItem(key, value);
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    /* storage unavailable — not worth breaking the terminal over */
+  }
 };
 
-export const getFromLS = (key: string) => {
-  const value = window.localStorage.getItem(key);
-
-  if (value) {
-    return value;
+export const getFromLS = (key: string): string | null => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
   }
 };

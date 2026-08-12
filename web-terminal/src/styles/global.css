@@ -1,0 +1,107 @@
+/* Reset + base, previously createGlobalStyle in GlobalStyle.tsx */
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Consolas, "Liberation Mono", monospace;
+  font-weight: 500;
+  font-variant-ligatures: none;
+  background-color: var(--color-body);
+  color: var(--color-text-100);
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-body);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-scroll-handle);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scroll-handle-hover);
+}
+
+input[type="text"] {
+  background-color: transparent;
+  color: var(--color-text-100);
+  caret-color: var(--color-primary);
+  font: inherit;
+  border: 0;
+  padding: 0;
+}
+
+input[type="text"]:focus-visible {
+  outline: none;
+}
+
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
