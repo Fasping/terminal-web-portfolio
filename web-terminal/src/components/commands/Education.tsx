@@ -17,17 +17,16 @@ const Education: React.FC = () => {
 
 const eduBg = [
     {
-        title: "Bootcamp, FullStack Web Developer",
-        desc: "Ironhack Berlin | 2021",
-
+        title: "Web Development Full-Time Bootcamp",
+        desc: "Ironhack | Berlin, Germany | 2021",
     },
     {
-        title: "Psychology Degree",
-        desc: "UOC Universitat Oberta de Catalunya | 2013 ~ 2016",
+        title: "Psychology",
+        desc: "UOC - Universitat Oberta de Catalunya | Barcelona, Spain | 2013 ~ 2016",
     },
     {
         title: "Bachelor's degree, Art",
-        desc: "IES Puig de la Creu | 2011 ~ 2013",
+        desc: "IES Puig de la Creu | Barcelona, Spain | 2011 ~ 2013",
     },
 ];
 
