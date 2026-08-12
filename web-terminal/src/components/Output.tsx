@@ -6,9 +6,12 @@ import Clear from "./commands/Clear";
 import Echo from "./commands/Echo";
 import Education from "./commands/Education";
 import Email from "./commands/Email";
+import Experience from "./commands/Experience";
 import GeneralOutput from "./commands/GeneralOutput";
 import Help from "./commands/Help";
 import History from "./commands/History";
+import Resume from "./commands/Resume";
+import Skills from "./commands/Skills";
 import Socials from "./commands/Socials";
 import Themes from "./commands/Themes";
 import Welcome from "./commands/Welcome";
@@ -30,11 +33,15 @@ const Output: React.FC<Props> = ({ index, cmd }) => {
     const commandsMap: { [key: string]: JSX.Element } = {
         about: <About />,
         clear: <Clear />,
+        cv: <Resume />,
         echo: <Echo />,
         education: <Education />,
         email: <Email />,
+        experience: <Experience />,
         help: <Help />,
         history: <History />,
+        resume: <Resume />,
+        skills: <Skills />,
         socials: <Socials />,
         themes: <Themes />,
         welcome: <Welcome />,

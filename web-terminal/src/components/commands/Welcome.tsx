@@ -33,7 +33,7 @@ const Welcome: React.FC = () => {
                      `}
                     </PreNameMobile>
                 </PreWrapper>
-                <div>Welcome to my terminal portfolio. (Version 2.0.1)</div>
+                <div>Welcome to my terminal portfolio. (Version 2.1.0)</div>
                 <Seperator>----</Seperator>
                 <div>
                     This project's source code can be found in this project's{" "}
@@ -44,7 +44,13 @@ const Welcome: React.FC = () => {
                 </div>
                 <Seperator>----</Seperator>
                 <div>
-                    For a list of available commands, type `<Cmd>help</Cmd>`.
+                    Frontend Developer &amp; Technical Project Manager — Madrid, Spain.
+                </div>
+                <Seperator>----</Seperator>
+                <div>
+                    For a list of available commands, type `<Cmd>help</Cmd>`. Start with{" "}
+                    `<Cmd>about</Cmd>`, `<Cmd>experience</Cmd>`, `<Cmd>skills</Cmd>` or{" "}
+                    `<Cmd>resume</Cmd>`.
                 </div>
             </div>
 

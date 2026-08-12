@@ -54,7 +54,7 @@ const Socials: React.FC = () => {
 
     const renderContent = () => {
         if (arg.length > 0 || arg.length > 2) {
-            return isArgInvalid(arg, "go", ["1", "2", "3", "4"]) ? (
+            return isArgInvalid(arg, "go", ["1", "2"]) ? (
                 <Usage cmd="socials" />
             ) : null;
         } else {

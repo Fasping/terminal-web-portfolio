@@ -1,6 +1,23 @@
 # Terminal Web Portfolio
 
-My portfolio website is designed as a terminal interface, built using React, TypeScript, and Styled-Components. It offers multiple themes, autocomplete functionality, command navigation, command history view, offline capability, and testing.
+Personal portfolio of **Fernando Cases (Nando)** — Frontend Developer & Technical Project Manager based in Madrid, Spain — designed as a terminal interface and built using React, TypeScript, and Styled-Components. It offers multiple themes, autocomplete functionality, command navigation, command history view, offline capability, and testing.
+
+**Live:** [terminal-nando-web-portfolio.vercel.app](https://terminal-nando-web-portfolio.vercel.app/)
+
+## Available Commands
+
+| Command | Description |
+| --- | --- |
+| `about` | Who I am, in short |
+| `experience` | Professional experience |
+| `skills` | Tech stack and tools |
+| `education` | Education background |
+| `resume` / `cv` | Open my resume (PDF) |
+| `socials` | GitHub & LinkedIn (`socials go 1`) |
+| `email` | Send me an email |
+| `themes` | Switch theme (`themes set ubuntu`) |
+| `help` | List all commands |
+| `history`, `echo`, `clear`, `welcome`, `whoami` | Terminal utilities |
 
 ## Features
 

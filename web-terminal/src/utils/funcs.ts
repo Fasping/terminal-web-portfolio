@@ -49,10 +49,10 @@ export const checkRedirect = (
   command: string
 ): boolean =>
   rerender && // is submitted
-  currentCommand[0] === command && // current command starts with ('socials'|'projects')
+  currentCommand[0] === command && // current command starts with ('socials')
   currentCommand[1] === "go" && // first arg is 'go'
   currentCommand.length > 1 && // current command has arg
-  currentCommand.length < 4 && // if num of arg is valid (not `projects go 1 sth`)
+  currentCommand.length < 4 && // if num of arg is valid (not `socials go 1 sth`)
   _.includes([1, 2, 3, 4], parseInt(currentCommand[2])); // arg last part is one of id
 
 /**
@@ -120,34 +120,21 @@ export const argTab = (
     return hintsCmds;
   }
 
-  // 5) if input is 'projects' or 'socials'
-  else if (inputVal === "projects " || inputVal === "socials ") {
+  // 5) if input is 'socials'
+  else if (inputVal === "socials ") {
     setInputVal(`${inputVal}go`);
     return [];
   }
 
-  // 6) if input is 'projects g' or 'socials g'
-  else if (inputVal === "projects g" || inputVal === "socials g") {
+  // 6) if input is 'socials g'
+  else if (inputVal === "socials g") {
     setInputVal(`${inputVal}o`);
     return [];
   }
 
   // 7) if input is 'socials go '
   else if (_.startsWith(inputVal, "socials go ")) {
-    ["1.Github", "2.Dev.to", "3.Facebook", "4.Instagram"].forEach(t => {
-      hintsCmds = [...hintsCmds, t];
-    });
-    return hintsCmds;
-  }
-
-  // 8) if input is 'projects go '
-  else if (_.startsWith(inputVal, "projects go ")) {
-    [
-      "1.Sat Naing's Blog",
-      "2.Haru Fashion",
-      "3.Haru API",
-      "4.AstroPaper Blog Theme",
-    ].forEach(t => {
+    ["1.GitHub", "2.LinkedIn"].forEach(t => {
       hintsCmds = [...hintsCmds, t];
     });
     return hintsCmds;
