@@ -4,7 +4,7 @@ import { ThemeContext } from "../../App";
 import styles from "../../styles/themes.module.css";
 import output from "../../styles/output.module.css";
 import { checkThemeSwitch, getCurrentCmdArry, isArgInvalid } from "../../utils/funcs";
-import { termContext } from "../Terminal";
+import { termContext } from "../../context/terminal";
 import { THEMES, ThemeName } from "../../themes";
 import Usage from "../Usage";
 

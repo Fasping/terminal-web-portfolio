@@ -4,6 +4,8 @@ Personal portfolio of **Fernando Cases (Nando)** — Frontend Developer & Techni
 
 **Live:** [terminal-nando-web-portfolio.vercel.app](https://terminal-nando-web-portfolio.vercel.app/)
 
+[![CI](https://github.com/Fasping/terminal-web-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Fasping/terminal-web-portfolio/actions/workflows/ci.yml)
+
 ## Available Commands
 
 | Command | Description |
@@ -21,24 +23,40 @@ Personal portfolio of **Fernando Cases (Nando)** — Frontend Developer & Techni
 
 ## Features
 
-- **Responsive Design:** Optimized for all devices, ensuring a seamless experience.
-- **Multiple Themes:** Choose from a selection of different themes to personalize your experience.
-- **Autocomplete Feature:** Enhance productivity with autocomplete functionality, accessible via TAB or Ctrl + i.
-- **Navigation:** Easily navigate between previous and next commands using arrow keys.
-- **Command History:** Access your command history for quick reference and reuse.
-- **PWA and Offline Support:** Enjoy the benefits of a Progressive Web App, including offline functionality.
+- **Responsive design:** works from phones to ultrawide screens.
+- **8 themes:** stored in `localStorage` and applied before first paint, so there's no flash on reload.
+- **Autocomplete:** commands and their arguments, via TAB or Ctrl + i.
+- **Command history:** arrow keys to navigate, `history` to list it.
+- **Self-hosted font:** IBM Plex Mono, latin subset only.
 
 ## Tech Stack
 
-- **Frontend:** [React](https://reactjs.org/) with [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** [Styled-Components](https://styled-components.com/)
-- **UI/UX Design:** Created using [Figma](https://figma.com/)
-- **State Management:** Utilizing [ContextAPI](https://reactjs.org/docs/context.html)
-- **Testing Frameworks:** [Vitest](https://vitest.dev/)
+- **Frontend:** [React](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** CSS Modules + CSS custom properties (themes are one `data-theme` attribute on `<html>`)
+- **Build:** [Vite](https://vite.dev/)
+- **State:** React Context API
+- **Testing:** [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/), run on every PR by GitHub Actions
 
-## Multiple Themes
+## Project structure
 
-Explore and choose from a variety of themes to customize your terminal interface.
+```
+src/
+├── commands/registry.tsx   single source of truth: name, description, component, arguments
+├── components/             terminal shell + one component per command
+├── context/                terminal context (history, args, rerender)
+├── data/                   CV content: experience, skills, education, socials, profile
+├── hooks/                  useTheme
+└── styles/                 global.css, themes.css and one *.module.css per area
+```
+
+Adding a command means one entry in `commands/registry.tsx`; `help`, argument
+validation and tab completion all read from it.
+
+## Themes
+
+`dark` · `light` · `blue-matrix` · `espresso` · `green-goblin` · `ubuntu` · `tokyo-night` · `catppuccin`
+
+Switch with `themes set <name>`.
 
 ## Running Locally
 

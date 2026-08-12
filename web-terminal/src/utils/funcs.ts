@@ -1,86 +1,51 @@
-import _ from "lodash";
-import { THEMES } from "../themes";
+import { COMMANDS, getCommand } from "../commands/registry";
 
 /**
- * Generates html tabs
- * @param {number} num - The number of tabs
- * @returns {string} tabs - Tab string
- */
-export const generateTabs = (num = 0): string => {
-  let tabs = "\xA0\xA0";
-  for (let i = 0; i < num; i++) {
-    tabs += "\xA0";
-  }
-  return tabs;
-};
-
-/**
- * Check arg is valid
- * @param {string[]} arg - The arg array
- * @param {string} action - The action to compare | "go" | "set"
- * @param {string[]} options - Option array to compare | "dark" | "1"
- * @returns {boolean} boolean
+ * Check a command's arguments, e.g. `themes set ubuntu`.
+ * @returns true when the arguments are *not* valid
  */
 export const isArgInvalid = (
   arg: string[],
   action: string,
-  options: string[]
-) => arg[0] !== action || !_.includes(options, arg[1]) || arg.length > 2;
+  options: readonly string[]
+) => arg[0] !== action || !options.includes(arg[1]) || arg.length > 2;
 
-/**
- * Transform current cmd & arg into array
- * then return back the array
- * @param {string[]} history - The history array
- * @returns {string[]} array of cmd string
- */
+/** Turns the latest history entry into `["socials", "go", "1"]`. */
 export const getCurrentCmdArry = (history: string[]) =>
-  _.split(history[0].trim(), " ");
+  (history[0] ?? "").trim().split(" ");
 
-/**
- * Check current render makes redirect
- * @param {boolean} rerender - is submitted or not
- * @param {string[]} currentCommand - current submitted command
- * @param {string} command - the command of the function
- * @returns {boolean} redirect - true | false
- */
+/** True when the submitted command is a valid `<cmd> go <id>` redirect. */
 export const checkRedirect = (
   rerender: boolean,
   currentCommand: string[],
   command: string
-): boolean =>
-  rerender && // is submitted
-  currentCommand[0] === command && // current command starts with ('socials')
-  currentCommand[1] === "go" && // first arg is 'go'
-  currentCommand.length > 1 && // current command has arg
-  currentCommand.length < 4 && // if num of arg is valid (not `socials go 1 sth`)
-  _.includes([1, 2, 3, 4], parseInt(currentCommand[2])); // arg last part is one of id
+): boolean => {
+  const spec = getCommand(command);
 
-/**
- * Check current render makes redirect for theme
- * @param {boolean} rerender - is submitted or not
- * @param {string[]} currentCommand - current submitted command
- * @param {string[]} themes - the command of the function
- * @returns {boolean} redirect - true | false
- */
+  return (
+    rerender &&
+    currentCommand[0] === command &&
+    currentCommand[1] === "go" &&
+    currentCommand.length === 3 &&
+    !!spec?.args?.options.includes(currentCommand[2])
+  );
+};
+
+/** True when the submitted command is a valid `themes set <name>`. */
 export const checkThemeSwitch = (
   rerender: boolean,
   currentCommand: string[],
-  themes: string[]
+  themes: readonly string[]
 ): boolean =>
-  rerender && // is submitted
-  currentCommand[0] === "themes" && // current command starts with 'themes'
-  currentCommand[1] === "set" && // first arg is 'set'
-  currentCommand.length > 1 && // current command has arg
-  currentCommand.length < 4 && // if num of arg is valid (not `themes set light sth`)
-  _.includes(themes, currentCommand[2]); // arg last part is one of id
+  rerender &&
+  currentCommand[0] === "themes" &&
+  currentCommand[1] === "set" &&
+  currentCommand.length === 3 &&
+  themes.includes(currentCommand[2]);
 
 /**
- * Perform advanced tab actions
- * @param {string} inputVal - current input value
- * @param {(value: React.SetStateAction<string>) => void} setInputVal - setInputVal setState
- * @param {(value: React.SetStateAction<string[]>) => void} setHints - setHints setState
- * @param {hintsCmds} hintsCmds - hints command array
- * @returns {string[] | undefined} hints command or setState action(undefined)
+ * Tab completion for arguments. Everything is derived from the command
+ * registry, so a new command with `args` gets completion for free.
  */
 export const argTab = (
   inputVal: string,
@@ -88,55 +53,30 @@ export const argTab = (
   setHints: (value: React.SetStateAction<string[]>) => void,
   hintsCmds: string[]
 ): string[] | undefined => {
-  // 1) if input is 'themes '
-  if (inputVal === "themes ") {
-    setInputVal(`themes set`);
+  const [name, action, option] = inputVal.split(" ");
+  const spec = COMMANDS.find(command => command.cmd === name);
+
+  if (!spec?.args) return;
+
+  const expected = spec.args.action;
+
+  // `themes ` or a partially typed action -> complete the action
+  if (action !== undefined && action !== expected && expected.startsWith(action)) {
+    setInputVal(`${name} ${expected}`);
     return [];
   }
 
-  // 2) if input is 'themes s'
-  else if (
-    _.startsWith("themes", _.split(inputVal, " ")[0]) &&
-    _.split(inputVal, " ")[1] !== "set" &&
-    _.startsWith("set", _.split(inputVal, " ")[1])
-  ) {
-    setInputVal(`themes set`);
+  if (action !== expected) return;
+
+  // `themes set ` -> list every option
+  if (option === undefined || option === "") {
+    setHints([...spec.args.options]);
     return [];
   }
 
-  // 3) if input is 'themes set '
-  else if (inputVal === "themes set ") {
-    setHints([...THEMES]);
-    return [];
-  }
-
-  // 4) if input starts with 'themes set ' + theme
-  else if (_.startsWith(inputVal, "themes set ")) {
-    THEMES.forEach(t => {
-      if (_.startsWith(t, _.split(inputVal, " ")[2])) {
-        hintsCmds = [...hintsCmds, t];
-      }
-    });
-    return hintsCmds;
-  }
-
-  // 5) if input is 'socials'
-  else if (inputVal === "socials ") {
-    setInputVal(`${inputVal}go`);
-    return [];
-  }
-
-  // 6) if input is 'socials g'
-  else if (inputVal === "socials g") {
-    setInputVal(`${inputVal}o`);
-    return [];
-  }
-
-  // 7) if input is 'socials go '
-  else if (_.startsWith(inputVal, "socials go ")) {
-    ["1.GitHub", "2.LinkedIn"].forEach(t => {
-      hintsCmds = [...hintsCmds, t];
-    });
-    return hintsCmds;
-  }
+  // `themes set u` -> narrow the list down
+  return [
+    ...hintsCmds,
+    ...spec.args.options.filter(value => value.startsWith(option)),
+  ];
 };

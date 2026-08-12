@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styles from "../../styles/output.module.css";
-import { termContext } from "../Terminal";
+import { termContext } from "../../context/terminal";
 
 /** Strips one layer of matching quotes or backticks around the text. */
 const unquote = (value: string) => {

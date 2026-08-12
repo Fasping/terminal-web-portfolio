@@ -1,5 +1,6 @@
 import styles from "../../styles/welcome.module.css";
 import output from "../../styles/output.module.css";
+import { profile } from "../../data/profile";
 
 const Welcome = () => (
     <div className={styles.hero} data-testid="welcome">
@@ -23,20 +24,22 @@ const Welcome = () => (
                      `}
                 </pre>
             </div>
-            <div>Welcome to my terminal portfolio. (Version 2.1.0)</div>
+            <div>Welcome to my terminal portfolio. (Version {profile.version})</div>
             <div className={styles.separator}>----</div>
             <div>
                 This project's source code can be found in this project's{" "}
                 <a
                     className={output.link}
-                    href="https://github.com/Fasping/terminal-web-portfolio"
+                    href={profile.repoUrl}
                 >
                     GitHub repo
                 </a>
                 .
             </div>
             <div className={styles.separator}>----</div>
-            <div>Frontend Developer &amp; Technical Project Manager — Madrid, Spain.</div>
+            <div>
+                {profile.role} — {profile.location}.
+            </div>
             <div className={styles.separator}>----</div>
             <div>
                 For a list of available commands, type `<span className={styles.cmd}>help</span>
