@@ -3,6 +3,7 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 import { useTheme } from "./hooks/useTheme";
 import GlobalStyle from "./components/styles/GlobalStyle";
 import Terminal from "./components/Terminal";
+import TerminalWindow from "./components/TerminalWindow";
 
 type ThemeSwitcher = (switchTheme: DefaultTheme) => void;
 
@@ -60,7 +61,9 @@ function App() {
         <ThemeProvider theme={selectedTheme}>
           <GlobalStyle theme={selectedTheme} />
           <ThemeContext.Provider value={themeSwitcher}>
-            <Terminal />
+            <TerminalWindow>
+              <Terminal />
+            </TerminalWindow>
           </ThemeContext.Provider>
         </ThemeProvider>
       )}

@@ -1,13 +1,20 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  flex: 1;
+  min-height: 0;
   padding: 1.25rem;
   padding-top: 0.75rem;
 
   display: flex;
   flex-direction: column-reverse;
-  max-height: calc(100vh - 2rem);
   overflow-y: auto;
+  overscroll-behavior: contain;
+
+  @media (max-width: 550px) {
+    padding: 1rem;
+    padding-top: 0.5rem;
+  }
 `;
 
 export const CmdNotFound = styled.div`

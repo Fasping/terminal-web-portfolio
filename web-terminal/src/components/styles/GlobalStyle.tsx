@@ -5,9 +5,14 @@ const GlobalStyle = createGlobalStyle<{ theme: DefaultTheme }>`
   ${normalize}
   
   *, ::before, ::after {
+    box-sizing: border-box;
     border-width: 0;
     border-style: solid;
-    border-color: theme('borderColor.DEFAULT', currentColor);
+    border-color: currentColor;
+  }
+
+  html, body {
+    height: 100%;
   }
 
   blockquote, dl, dd, h1, h2, h3,
@@ -26,10 +31,23 @@ const GlobalStyle = createGlobalStyle<{ theme: DefaultTheme }>`
   }
 
   body {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+      Consolas, 'Liberation Mono', monospace;
     font-weight: 500;
+    font-variant-ligatures: none;
     background-color: ${({ theme }) => theme.colors?.body};
     color: ${({ theme }) => theme.colors?.text[100]};
+  }
+
+  ::selection {
+    background-color: ${({ theme }) =>
+      `color-mix(in srgb, ${theme.colors?.primary} 30%, transparent)`};
+  }
+
+  :focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors?.primary};
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   /* ===== Custom Scroll Bar ===== */
@@ -51,7 +69,7 @@ const GlobalStyle = createGlobalStyle<{ theme: DefaultTheme }>`
   }
 
   input[type=text] {
-    background-color: ${({ theme }) => theme.colors?.body};
+    background-color: transparent;
     color: ${({ theme }) => theme.colors?.text[100]};
     caret-color: ${({ theme }) => theme.colors?.primary};
   }
